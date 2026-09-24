@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 
-// This is our "shape" for a flight — TypeScript will now warn us
-// if we forget a field or use the wrong type anywhere in the app.
 export interface Flight {
   id: number;
   flightNumber: string;
