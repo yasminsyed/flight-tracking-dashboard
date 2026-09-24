@@ -1,0 +1,27 @@
+<form [formGroup]="filterForm" class="filter-bar">
+  <label for="callsign-search" class="sr-only">Search by callsign</label>
+  <input
+    type="text"
+    formControlName="search"
+    placeholder="Search by callsign..."
+    class="filter-input search-input"
+  />
+
+  <select formControlName="status" class="filter-select">
+    <option value="">All Statuses</option>
+    <option *ngFor="let status of statusOptions" [value]="status">{{ status }}</option>
+  </select>
+
+  <select formControlName="origin" class="filter-select">
+    <option value="">All Origins</option>
+    <option *ngFor="let origin of originOptions" [value]="origin">{{ origin }}</option>
+  </select>
+
+  <select formControlName="destination" class="filter-select">
+    <option value="">All Destinations</option>
+    <option *ngFor="let dest of destinationOptions" [value]="dest">{{ dest }}</option>
+  </select>
+
+  <button type="button" (click)="clearFilters()" class="clear-btn">Clear</button>
+
+</form>

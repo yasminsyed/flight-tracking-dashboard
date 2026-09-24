@@ -1,0 +1,61 @@
+<div class="details-panel">
+  <h3 class="panel-title">Flight Details</h3>
+  <div *ngIf="flight; else noSelection" class="details-content">
+    <div class="flight-title">
+      Flight <span class="highlight">{{ flight.callsign }}</span>
+    </div>
+
+    <div class="detail-row">
+      <span class="label">Aircraft Type</span>
+      <span class="value">{{ flight.aircraftType }} ✈️</span>
+    </div>
+
+    <div class="detail-row">
+      <span class="label">Status</span>
+      <span class="value status-badge" [ngClass]="flight.status.toLowerCase()">
+        ● {{ flight.status }}
+      </span>
+    </div>
+
+    <div class="route-block">
+      <div class="route-row">
+        <span class="route-icon">🛫</span>
+        <div class="route-text">
+          <span class="route-label">Departure</span>
+          <span class="route-place">{{ flight.origin }}</span>
+        </div>
+        <span class="route-time">{{ flight.departureTime }}</span>
+      </div>
+
+      <div class="route-row">
+        <span class="route-icon">🛬</span>
+        <div class="route-text">
+          <span class="route-label">Arrival</span>
+          <span class="route-place">{{ flight.destination }}</span>
+        </div>
+        <span class="route-time">{{ flight.arrivalTime }}</span>
+      </div>
+    </div>
+
+    <div class="progress-block">
+      <span class="label">Progress</span>
+      <div class="progress-bar-track">
+        <div class="progress-bar-fill" [style.width.%]="progressPercent"></div>
+      </div>
+      <span class="progress-percent">~{{ progressPercent }}%</span>
+    </div>
+
+    <div class="log-block">
+      <span class="label">Operations Log</span>
+      <ul class="log-list">
+        <li *ngFor="let entry of operationsLog">{{ entry }}</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <ng-template #noSelection>
+    <p class="empty-state">Click a flight marker on the map to see details here.</p>
+  </ng-template>
+
+</div>

@@ -1,5 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { DashboardComponent } from './components/dashboard/dashboard';
 
 @Component({
   selector: 'app-root',
@@ -7,6 +8,4 @@ import { RouterOutlet } from '@angular/router';
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
-export class App {
-  protected readonly title = signal('flight-tracking-dashboard');
-}
+export class App {}
