@@ -46,40 +46,44 @@ A responsive Angular flight tracking dashboard for aviation operations personnel
 
 ## Project Structure
 
+```
 flight-tracking-dashboard/
 ├── src/
-│ ├── app/
-│ │ ├── components/
-│ │ │ ├── dashboard/ # Main layout — wires map, filters, KPIs, and details together
-│ │ │ │ ├── dashboard.ts
-│ │ │ │ ├── dashboard.html
-│ │ │ │ └── dashboard.scss
-│ │ │ ├── flight-map/ # Leaflet map: markers, routes, popups
-│ │ │ │ ├── flight-map.ts
-│ │ │ │ ├── flight-map.html
-│ │ │ │ └── flight-map.scss
-│ │ │ ├── flight-details/ # Selected flight info panel (progress bar, operations log)
-│ │ │ │ ├── flight-details.ts
-│ │ │ │ ├── flight-details.html
-│ │ │ │ └── flight-details.scss
-│ │ │ ├── kpi-cards/ # Total / Active / Delayed / Arrived summary cards
-│ │ │ │ ├── kpi-cards.ts
-│ │ │ │ ├── kpi-cards.html
-│ │ │ │ └── kpi-cards.scss
-│ │ │ └── filter-bar/ # Search + status/origin/destination filters
-│ │ │ ├── filter-bar.ts
-│ │ │ ├── filter-bar.html
-│ │ │ └── filter-bar.scss
-│ │ ├── services/
-│ │ │ └── flight.ts # Mock flight data, filtering logic, shared selected-flight state
-│ │ ├── app.ts # Root component (RouterOutlet)
-│ │ ├── app.html
-│ │ └── app.routes.ts # Route definitions (redirects to /dashboard)
-│ ├── styles.scss # Global styles, font import, dark mode CSS variables
-│ └── index.html
+│   ├── app/
+│   │   ├── components/
+│   │   │   ├── dashboard/            # Main layout — wires map, filters, KPIs, and details together
+│   │   │   │   ├── dashboard.ts
+│   │   │   │   ├── dashboard.html
+│   │   │   │   └── dashboard.scss
+│   │   │   ├── flight-map/           # Leaflet map: markers, routes, popups
+│   │   │   │   ├── flight-map.ts
+│   │   │   │   ├── flight-map.html
+│   │   │   │   └── flight-map.scss
+│   │   │   ├── flight-details/       # Selected flight info panel (progress bar, operations log)
+│   │   │   │   ├── flight-details.ts
+│   │   │   │   ├── flight-details.html
+│   │   │   │   └── flight-details.scss
+│   │   │   ├── kpi-cards/            # Total / Active / Delayed / Arrived summary cards
+│   │   │   │   ├── kpi-cards.ts
+│   │   │   │   ├── kpi-cards.html
+│   │   │   │   └── kpi-cards.scss
+│   │   │   └── filter-bar/           # Search + status/origin/destination filters
+│   │   │       ├── filter-bar.ts
+│   │   │       ├── filter-bar.html
+│   │   │       └── filter-bar.scss
+│   │   ├── services/
+│   │   │   └── flight.ts             # Mock flight data, filtering logic, shared selected-flight state
+│   │   ├── app.ts                    # Root component (RouterOutlet)
+│   │   ├── app.html
+│   │   └── app.routes.ts             # Route definitions (redirects to /dashboard)
+│   ├── styles.scss                   # Global styles, font import, dark mode CSS variables
+│   └── index.html
 ├── angular.json
 ├── package.json
 └── README.md
+```
+
+
 
 
 ## Architecture Notes
