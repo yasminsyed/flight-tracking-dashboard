@@ -1,59 +1,100 @@
-# FlightTrackingDashboard
+# Flight Tracking & Operations Dashboard
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.0.8.
+A responsive Angular flight tracking dashboard for aviation operations personnel, built with Angular 17, Leaflet Maps, Reactive Forms, and RxJS.
 
-## Development server
+## Features
 
-To start a local development server, run:
+- Interactive Leaflet map displaying 15+ mock flights as color-coded, direction-oriented plane markers
+- Click a flight to highlight its route (polyline) and auto-center the map
+- Flight details panel with aircraft info, status, times, progress bar, and operations log
+- Live-updating KPI dashboard (Total / Active / Delayed / Arrived flights)
+- Search by callsign, filter by status, origin, and destination (Reactive Forms + RxJS debounce)
+- Dark mode toggle (applies across the entire app via CSS variables)
+- Sticky dashboard header that stays fixed while scrolling
+- Responsive layout for desktop and tablet screens
+- Basic accessibility: labeled form controls, ARIA attributes on interactive controls
 
+## Tech Stack
+
+- Angular 17 (standalone components, no NgModules)
+- TypeScript
+- Leaflet.js for interactive maps
+- Reactive Forms (`FormGroup`, `FormControl`)
+- RxJS (`valueChanges`, `debounceTime`)
+- Angular Router
+- SCSS with CSS custom properties for theming
+
+## Setup Instructions
+
+1. Clone the repository:
 ```bash
-ng serve
+   git clone https://github.com/yasminsyed/flight-tracking-dashboard.git
+   cd flight-tracking-dashboard
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
+2. Install dependencies:
 ```bash
-ng generate component component-name
+   npm install
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
+3. Run the development server:
 ```bash
-ng generate --help
+   ng serve
 ```
 
-## Building
+4. Open your browser at `http://localhost:4200` (auto-redirects to `/dashboard`)
 
-To build the project run:
+## Project Structure
 
-```bash
-ng build
-```
+flight-tracking-dashboard/
+├── src/
+│ ├── app/
+│ │ ├── components/
+│ │ │ ├── dashboard/ # Main layout — wires map, filters, KPIs, and details together
+│ │ │ │ ├── dashboard.ts
+│ │ │ │ ├── dashboard.html
+│ │ │ │ └── dashboard.scss
+│ │ │ ├── flight-map/ # Leaflet map: markers, routes, popups
+│ │ │ │ ├── flight-map.ts
+│ │ │ │ ├── flight-map.html
+│ │ │ │ └── flight-map.scss
+│ │ │ ├── flight-details/ # Selected flight info panel (progress bar, operations log)
+│ │ │ │ ├── flight-details.ts
+│ │ │ │ ├── flight-details.html
+│ │ │ │ └── flight-details.scss
+│ │ │ ├── kpi-cards/ # Total / Active / Delayed / Arrived summary cards
+│ │ │ │ ├── kpi-cards.ts
+│ │ │ │ ├── kpi-cards.html
+│ │ │ │ └── kpi-cards.scss
+│ │ │ └── filter-bar/ # Search + status/origin/destination filters
+│ │ │ ├── filter-bar.ts
+│ │ │ ├── filter-bar.html
+│ │ │ └── filter-bar.scss
+│ │ ├── services/
+│ │ │ └── flight.ts # Mock flight data, filtering logic, shared selected-flight state
+│ │ ├── app.ts # Root component (RouterOutlet)
+│ │ ├── app.html
+│ │ └── app.routes.ts # Route definitions (redirects to /dashboard)
+│ ├── styles.scss # Global styles, font import, dark mode CSS variables
+│ └── index.html
+├── angular.json
+├── package.json
+└── README.md
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
 
-## Running unit tests
+## Architecture Notes
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+- **Single shared service (`FlightService`)** holds the mock flight data, current filters, and selected flight — every component reads from and updates this one source of truth instead of passing data through many component layers.
+- **Standalone components** are used throughout (Angular 17 default) — no `NgModule` boilerplate.
+- **Leaflet `LayerGroup`** is used to manage map markers as a single unit, so `clearLayers()` reliably removes all markers before redrawing on every filter change.
+- **Flight positions on the map** are calculated as a point 40% along the route from origin to destination (not at the origin city itself), so flights with the same departure city don't visually stack on top of each other, and to better simulate "in-flight" tracking.
+- **Dark mode** is implemented with CSS custom properties (`--bg-page`, `--bg-card`, `--text-primary`, etc.) toggled via a `dark-mode` class on `<body>` — no external theming library required.
 
-```bash
-ng test
-```
+## Data
 
-## Running end-to-end tests
+All flight data is mocked within `FlightService`. No backend or external API is required to run this project.
 
-For end-to-end (e2e) testing, run:
+## Known Limitations
 
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- The Leaflet map itself has inherent accessibility limitations common to interactive map libraries; a production version would benefit from a supplementary accessible list/table view of flights as an alternative to the map.
+- Progress percentage and the operations log are simulated for presentation purposes, not calculated from real telemetry.
